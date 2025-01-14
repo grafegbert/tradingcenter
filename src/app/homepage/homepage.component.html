@@ -1,0 +1,18 @@
+<div id="content">
+    <section *ngIf="loadingAnimationTrigger">
+        <loading-animation></loading-animation>
+    </section>
+    <section *ngIf="!loadingAnimationTrigger && !this.noMatchingCardsFound">
+        <div id="headline-container"><h1>All Cards available:</h1></div>
+        <div id="cards-container">
+            <div id="card-wrapper" *ngFor="let card of filteredCards">
+                <pokemon-card [cardData]="card"></pokemon-card>
+            </div>
+        </div>
+    </section>
+    <section *ngIf="this.noMatchingCardsFound && this.currentSearchValue != ''">
+        <div id="no-cards-info-container">
+            <b>There are no cards for name "{{this.currentSearchValue}}"!</b>
+        </div>
+    </section>
+</div>
