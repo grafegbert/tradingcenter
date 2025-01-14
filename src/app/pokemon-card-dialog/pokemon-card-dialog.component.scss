@@ -1,0 +1,55 @@
+section {
+    background-color: goldenrod;
+
+    img {
+        height: 500px;
+        width: 367px;
+        border: solid 2px black;
+        border-radius: 20px;
+    }
+
+    #loading-image {
+        height: 500px;
+        width: 367px;
+    }
+
+    #add-box {
+        display: flex;
+        background-color: grey;
+        border: solid 2px black;
+        padding: 20px 15px 0 15px;
+        border-radius: 15px;
+
+        div {
+            color: gold;
+            padding-top: 10px;
+            height: 50px;
+            display: flex;
+
+            #plus {
+                font-size: 300%;
+                margin-right: 5px;
+            }
+
+            #plus-text {
+                height: 40px;
+            }
+        }
+    }
+
+    button:hover {
+        -moz-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+
+    a:hover {
+        -moz-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+
+    a {
+        cursor: pointer;
+    }
+}
