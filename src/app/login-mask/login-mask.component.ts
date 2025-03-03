@@ -36,7 +36,6 @@ export class LoginMaskComponent {
   emitAccountCreation(): void {
     this.service.pushRegistrationData(
       {
-        name: this.loginGroup.controls["name"].value,
         username: this.loginGroup.controls["username"].value,
         password: this.loginGroup.controls["password"].value,
         mail: this.loginGroup.controls["mail"].value

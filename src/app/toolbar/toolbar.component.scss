@@ -1,5 +1,5 @@
 mat-toolbar {
-    background-color: #FFEC8B;
+    background-color: #731481;
     width: 100%;
     height: 80px;
     border-bottom: solid 3px;
@@ -8,7 +8,6 @@ mat-toolbar {
     z-index: 999;
     
     #left-container {
-        background-color: #FFEC8B;
         width: 30%;
         display: flex;
     }
@@ -38,7 +37,6 @@ mat-toolbar {
         border: 2px solid black;
         overflow: hidden;
         width: 40%;
-        background-color: #FFEC8B;
         border-radius: 35px;
 
         #search-field {
