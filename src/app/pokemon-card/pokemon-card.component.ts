@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PokemonCard } from '../models/models';
+import { MonsterCard } from '../models/models';
 import { PokemonCardDialogComponent } from '../pokemon-card-dialog/pokemon-card-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './pokemon-card.component.scss'
 })
 export class PokemonCardComponent {
-  @Input() cardData!: PokemonCard;
+  @Input() cardData!: MonsterCard;
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {}
 

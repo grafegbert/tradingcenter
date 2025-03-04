@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { PokemonCard } from './models/models';
+import { MonsterCard } from './models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiClientService { 
-  cards$: BehaviorSubject<PokemonCard[]> = new BehaviorSubject<PokemonCard[]>([]);
+  cards$: BehaviorSubject<MonsterCard[]> = new BehaviorSubject<MonsterCard[]>([]);
   adress: String = "http://localhost:8080/"
 
   constructor(private http: HttpClient) {}
@@ -30,8 +30,8 @@ export class ApiClientService {
     });
   }
 
-  public get(pokemonName: string): Observable<HttpResponse<PokemonCard>> {
-    return this.http.post<HttpResponse<PokemonCard>>(
+  public get(pokemonName: string): Observable<HttpResponse<MonsterCard>> {
+    return this.http.post<HttpResponse<MonsterCard>>(
       this.adress + "cards/", pokemonName,  { headers: this.getDefaultHeaders() }
     ); 
   }
@@ -44,9 +44,20 @@ export class ApiClientService {
         let builtCard = {
           id: card.number,
           name: card.name,
-          imageSmall: card.images.small,
-          imageLarge: card.images.large,
-          priceInEuro: 1.12
+          type: card.type,
+          humanReadableCardType: card.humanReadableCardType,
+          frameType: card.frameType,
+          description: card.description,
+          race: card.race,
+          archetype: card.archetype,
+          ygoprodeckUrl: card.ygoprodeckUrl,
+          sets: card.sets,
+          imageLinks: card.imageLinks,
+          prices: card.prices,
+          attack: card.attack,
+          defense: card.defense,
+          level: card.level,
+          attribute: card.attribute,
         };
 
         this.cards$.next([...this.cards$.value, builtCard]);
@@ -54,7 +65,7 @@ export class ApiClientService {
     });
   }
 
-  public getAllCards(): Observable<PokemonCard[]> {
+  public getAllCards(): Observable<MonsterCard[]> {
     this.fetchAllCards();
     return this.cards$;
   }

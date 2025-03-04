@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PokemonCard } from '../models/models';
+import { MonsterCard } from '../models/models';
 import { ApiClientService } from '../api-client.service';
 import { EMPTY, catchError, debounceTime, map, tap } from 'rxjs';
 import { SearchServiceService } from '../search-service.service';
@@ -10,8 +10,8 @@ import { SearchServiceService } from '../search-service.service';
   styleUrl: './homepage.component.scss'
 })
 export class HomepageComponent implements OnInit {
-  allCards: PokemonCard[] = [];
-  filteredCards: PokemonCard[] = [];
+  allCards: MonsterCard[] = [];
+  filteredCards: MonsterCard[] = [];
   loadingAnimationTrigger: boolean = true;
   noMatchingCardsFound: boolean = false;
   currentSearchValue: string = "";
