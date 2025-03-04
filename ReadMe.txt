@@ -22,3 +22,11 @@ Automatisierung (Optional|Empfohlen)
 Fehlerbehebung
 - Falls der USB-Stick nicht erkannt wird, prüfe den richtigen Laufwerksbuchstaben.
 - Falls Dateien fehlen, überprüfe Berechtigungen für den Quellordner.
+
+Erklärung der Parameter
+- /E – Kopiert alle Unterverzeichnisse, auch leere.
+- /H – Kopiert versteckte und Systemdateien.
+- /C – Setzt die Kopie auch bei Fehlern fort.
+- /I – Falls das Ziel nicht existiert, wird es als Verzeichnis behandelt.
+- /Y – Überschreibt vorhandene Dateien ohne Nachfrage.
+- Falls dein USB-Stick einen anderen Laufwerksbuchstaben hat, ersetze E: durch den korrekten Buchstaben.
