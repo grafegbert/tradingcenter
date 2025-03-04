@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { MonsterCard } from './models/models';
+import { DUMMY_MONSTER_CARDS } from './models/DUMMY_MONSTER_CARDS';
 
 @Injectable({
   providedIn: 'root'
@@ -65,9 +66,13 @@ export class ApiClientService {
     });
   }
 
-  public getAllCards(): Observable<MonsterCard[]> {
+  /*public getAllCards(): Observable<MonsterCard[]> {
     this.fetchAllCards();
     return this.cards$;
+  }*/
+
+  public getAllCards(): Observable<MonsterCard[]> {
+    return of(DUMMY_MONSTER_CARDS);
   }
 
   private getDefaultHeaders(): HttpHeaders {
