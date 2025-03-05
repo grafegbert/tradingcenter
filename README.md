@@ -19,21 +19,8 @@ Dieses Skript kopiert alle Dateien und Unterordner aus einem bestimmten Quellver
 5. Speichern & Ausführen
 	- Speichere die Datei mit der Endung .bat.
 	- Doppelklicke die Datei, um das Backup zu starten.
-
-## Automatisierung (Optional|Empfohlen)
-- Öffne die Taskplaner-App (taskschd.msc).
-- Erstelle eine neue Aufgabe und wähle "Einfacher Trigger" (z. B. täglich um 18:00 Uhr).
-- Wähle "Programm starten" und gib den Pfad zur backup.bat-Datei an.
-- Speichern & Fertig!
-
-## Fehlerbehebung
-- Falls der USB-Stick nicht erkannt wird, prüfe den richtigen Laufwerksbuchstaben.
-- Falls Dateien fehlen, überprüfe Berechtigungen für den Quellordner.
-
-## Erklärung der Parameter
-- /E – Kopiert alle Unterverzeichnisse, auch leere.
-- /H – Kopiert versteckte und Systemdateien.
-- /C – Setzt die Kopie auch bei Fehlern fort.
-- /I – Falls das Ziel nicht existiert, wird es als Verzeichnis behandelt.
-- /Y – Überschreibt vorhandene Dateien ohne Nachfrage.
-- Falls dein USB-Stick einen anderen Laufwerksbuchstaben hat, ersetze E: durch den korrekten Buchstaben.
+6. Automatisierung
+	- Öffne die Taskplaner-App (taskschd.msc).
+	- Erstelle eine neue Aufgabe und wähle "Einfacher Trigger" (z. B. täglich um 18:00 Uhr).
+	- Wähle "Programm starten" und gib den Pfad zur backup.bat-Datei an.
+	- Speichern & Fertig!
