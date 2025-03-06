@@ -2,6 +2,8 @@ package org.afbb.tradingcenter.database;
 
 import org.afbb.tradingcenter.objects.Card;
 import org.afbb.tradingcenter.objects.MonsterCard;
+import org.afbb.tradingcenter.objects.arrays.CardImages;
+import org.afbb.tradingcenter.objects.arrays.CardPrices;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -20,9 +22,12 @@ public class DatabaseConnection {
     }
 
     private DatabaseConnection() {
-        factory = new Configuration().configure("hibernate.cfg.xml")
+        factory = new Configuration()
+                .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Card.class)
                 .addAnnotatedClass(MonsterCard.class)
+                .addAnnotatedClass(CardImages.class)
+                .addAnnotatedClass(CardPrices.class)
                 .buildSessionFactory();
     }
 

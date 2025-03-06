@@ -1,0 +1,1 @@
+SELECT COUNT(c) FROM Card c

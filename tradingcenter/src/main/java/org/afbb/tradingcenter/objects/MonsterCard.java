@@ -1,22 +1,28 @@
 package org.afbb.tradingcenter.objects;
 
+import lombok.NoArgsConstructor;
 import org.afbb.tradingcenter.objects.arrays.CardImages;
 import org.afbb.tradingcenter.objects.arrays.CardPrices;
 import org.afbb.tradingcenter.objects.arrays.CardSet;
 import lombok.Getter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.List;
 
+//TODO: overwrite NoArgsConstructor and refactor
 @Getter
 @Entity
+@Table(name = "monster_cards")
+@NoArgsConstructor(force = true)
+@PrimaryKeyJoinColumn(name = "id")
 public class MonsterCard extends Card {
     private Integer attack;
     private Integer defense;
     private Integer level;
     private String attribute;
 
-    public MonsterCard(Integer id,
+    public MonsterCard(
+        Integer id,
         String name,
         String type,
         String humanReadableCardType,
