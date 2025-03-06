@@ -15,7 +15,7 @@ export class HomepageComponent implements OnInit {
   loadingAnimationTrigger: boolean = true;
   noMatchingCardsFound: boolean = false;
   currentSearchValue: string = "";
-  pagesize: number = 25;
+  pagesize: number = 50;
   pageindex: number = 0;
   numberOfAllCards = 0;
 

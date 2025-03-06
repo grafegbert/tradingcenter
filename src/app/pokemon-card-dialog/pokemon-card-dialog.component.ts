@@ -24,7 +24,7 @@ export class PokemonCardDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = this.pokemonCard.name;
-    this.imageSource = this.pokemonCard.imageLinks.imageUrl;
+    this.imageSource = this.pokemonCard.imageLinks;
   }
 
   public emit(): void {

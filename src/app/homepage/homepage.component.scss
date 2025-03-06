@@ -6,10 +6,25 @@
 
     padding:20px 10px 145px 10px;
 
-    #headline-container {
+    #card-wrapper{
+        margin-bottom: 20px;
+    }
+
+    h1 {
         margin-top: 1em;
         text-align: center;
         width: 100%;
+    }
+
+    #card-prices {
+        align-self: center;
+        background-color: rgb(255, 255, 255); /* Gelber Hintergrund für Preis */
+        color: black;
+        padding: 5px 15px;
+        border-radius: 20px; /* Abgerundeter Container */
+        text-align: center;
+        margin: 10px;
+        border: 2px solid #41044b;
     }
 
     #cards-container {
