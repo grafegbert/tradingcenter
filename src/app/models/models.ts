@@ -42,3 +42,7 @@ export interface Card {
     price: number;
   }
   
+  export interface FilteredCards{
+    MonsterCards: Array<MonsterCard>;
+    totalamount: number;
+  }

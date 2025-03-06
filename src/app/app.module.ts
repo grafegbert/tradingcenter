@@ -20,6 +20,7 @@ import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { PokemonCardDialogComponent } from './pokemon-card-dialog/pokemon-card-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LoadingAnimationComponent } from './loading-animation/loading-animation
     MatMenuModule,
     ReactiveFormsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [
     provideClientHydration(),

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { MonsterCard } from './models/models';
+import { FilteredCards, MonsterCard } from './models/models';
 import { DUMMY_MONSTER_CARDS } from './models/DUMMY_MONSTER_CARDS';
 
 @Injectable({
@@ -71,8 +71,19 @@ export class ApiClientService {
     return this.cards$;
   }*/
 
-  public getAllCards(): Observable<MonsterCard[]> {
-    return of(DUMMY_MONSTER_CARDS);
+  //Für Dummy Karten aktivieren
+  public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
+    const filteredCards = DUMMY_MONSTER_CARDS.filter(card => 
+      card.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    const totalamount = filteredCards.length; // Gesamtanzahl der gefilterten Karten
+
+    const startIndex = pageindex * pagesize;
+    const endIndex = startIndex + pagesize;
+    const paginatedCards = filteredCards.slice(startIndex, endIndex);
+
+    return of({ MonsterCards: paginatedCards, totalamount });
   }
 
   private getDefaultHeaders(): HttpHeaders {
