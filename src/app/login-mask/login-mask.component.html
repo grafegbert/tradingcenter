@@ -1,0 +1,70 @@
+<section>
+    <div id="frame">
+        <div id="left-container">
+            <h1>Login</h1>
+            <div mat-dialog-content [formGroup]="loginGroup">
+                <div>
+                    <mat-form-field color="primary">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="username">
+                        <!-- <mat-error *ngIf="genericItemForm.controls['range'].errors?.['max'] || genericItemForm.controls['range'].errors?.['min']">
+                           <span>Min: {{this.minValidRange}} Max: {{this.maxValidRange}}!</span>
+                        </mat-error> -->
+                     </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field color="primary">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="'password'" formControlName="password">
+                        <!-- <mat-error *ngIf="genericItemForm.controls['range'].errors?.['max'] || genericItemForm.controls['range'].errors?.['min']">
+                           <span>Min: {{this.minValidRange}} Max: {{this.maxValidRange}}!</span>
+                        </mat-error> -->
+                     </mat-form-field>
+                </div>
+            </div>
+            <div class="confirm-button-container"><button mat-stroked-button (click)="emitLogin()">Confirm</button></div>
+        </div>
+        <div id="right-container">
+            <h1>Create account</h1>
+            <div mat-dialog-content [formGroup]="createAccGroup">
+                <div>
+                    <mat-form-field color="primary">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="password">
+                        <!-- <mat-error *ngIf="genericItemForm.controls['range'].errors?.['max'] || genericItemForm.controls['range'].errors?.['min']">
+                           <span>Min: {{this.minValidRange}} Max: {{this.maxValidRange}}!</span>
+                        </mat-error> -->
+                     </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field color="primary">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput formControlName="mail">
+                        <!-- <mat-error *ngIf="genericItemForm.controls['range'].errors?.['max'] || genericItemForm.controls['range'].errors?.['min']">
+                           <span>Min: {{this.minValidRange}} Max: {{this.maxValidRange}}!</span>
+                        </mat-error> -->
+                     </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field color="primary">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="'password'" formControlName="password">
+                        <!-- <mat-error *ngIf="genericItemForm.controls['range'].errors?.['max'] || genericItemForm.controls['range'].errors?.['min']">
+                           <span>Min: {{this.minValidRange}} Max: {{this.maxValidRange}}!</span>
+                        </mat-error> -->
+                     </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field color="primary">
+                        <mat-label>Confirm password</mat-label>
+                        <input matInput [type]="'password'" formControlName="confirmPassword">
+                        <!-- <mat-error *ngIf="genericItemForm.controls['range'].errors?.['max'] || genericItemForm.controls['range'].errors?.['min']">
+                           <span>Min: {{this.minValidRange}} Max: {{this.maxValidRange}}!</span>
+                        </mat-error> -->
+                     </mat-form-field>
+                </div>
+            </div>
+            <div class="confirm-button-container"><button mat-stroked-button (click)="emitAccountCreation()">Confirm</button></div>
+        </div>
+    </div>
+</section>

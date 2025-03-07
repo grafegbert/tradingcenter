@@ -1,0 +1,5 @@
+<section mat-dialog-content class="frame" onClose={handleClose}> 
+    <img src="{{imageSource}}" class="mat-elevation-z8" (load)="afterImageLoad()" [class.no-opacity]="imageIsLoading">
+    <div id="loading-image" *ngIf="imageIsLoading"><loading-animation></loading-animation></div>
+</section> 
+

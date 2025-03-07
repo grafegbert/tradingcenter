@@ -1,0 +1,42 @@
+<mat-toolbar class="mat-elevation-z6">
+    <div id="left-container">
+        <img src="../assets/images/logo.png" routerLink="homepage">
+        <div [class.spacer]="true"></div>
+        <div id="market-dropdown">
+            <h1>Market</h1>
+        </div>
+        <div [class.spacer]="true"></div>
+        <div id="my-cards">
+            <h1>My cards</h1>
+        </div>
+    </div>
+    <div [class.spacer]="true"></div>
+        <div id="search-field-frame">
+        <mat-form-field id="search-field"> 
+            <mat-icon matPrefix>search</mat-icon>
+            <div>
+                <input type="text" id="search" matInput placeholder="{{this.currentSearchValue}}" [formControl]="searchControl" (clickElsewhere)="resetPlaceholder()">
+            </div>
+        </mat-form-field>
+    </div>
+    <div [class.spacer]="true"></div>
+    <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="!userIsAuthenticated" routerLink="login-and-add-account">
+                <span>Login & Create account</span>
+            </button>
+            <button mat-menu-item *ngIf="userIsAuthenticated">
+                <span>Profile</span>
+            </button>
+            <button mat-menu-item *ngIf="userIsAuthenticated">
+                <span>Wishlist</span>
+            </button>
+            <button mat-menu-item *ngIf="userIsAuthenticated">
+                <span>Orders</span>
+            </button>
+        </mat-menu>
+    </div>
+</mat-toolbar>

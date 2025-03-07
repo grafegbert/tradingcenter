@@ -1,0 +1,26 @@
+<div id="content">
+    <section *ngIf="loadingAnimationTrigger">
+        <loading-animation></loading-animation>
+    </section>
+    <section *ngIf="!loadingAnimationTrigger && !this.noMatchingCardsFound">
+
+        <div id="cards-container">
+            <div id="card-wrapper" *ngFor="let card of allCards">
+                <pokemon-card [cardData]="card"></pokemon-card>
+                <div id="card-prices">{{card.prices}} €</div>
+            </div>
+        </div>
+    </section>
+    <section *ngIf="this.noMatchingCardsFound && this.currentSearchValue != ''">
+        <div id="no-cards-info-container">
+            <b>There are no cards for name "{{this.currentSearchValue}}"!</b>
+        </div>
+    </section>
+    <mat-paginator [length]= numberOfAllCards
+              [pageSize]= pagesize
+              [pageSizeOptions]="[25, 50, 100, 200]"
+              aria-label="Select page"
+              (page)="onPageChange($event)"
+              >
+    </mat-paginator>
+</div>

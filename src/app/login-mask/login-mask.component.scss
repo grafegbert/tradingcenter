@@ -1,0 +1,48 @@
+section {
+    width: 100%;
+    height: calc(100vh - 110px);
+    background-image: url('../../assets/images/background.jpg');
+    position: relative;
+    background-size: cover;
+
+    #frame {
+        position: absolute;
+        height: 50%;
+        padding: 4em;
+        width: 30%;
+        top: 47%; /* Vertikale Mitte */
+        left: 50%; /* Horizontale Mitte */
+        transform: translate(-50%, -50%); /* Korrektur für zentrierte Position */
+        display: flex;
+        flex-direction: row; /* Horizontale Anordnung */
+        align-items: center; /* Vertikale Zentrierung der Kinder */
+        justify-content: space-between; /* Gleichmäßiger Abstand zwischen den Containern */
+        background-color: rgb(225, 116, 235); /* Korrigierte Farbe */
+        border: 2px solid purple;
+        border-radius: 10px;
+    }
+    
+    #left-container {
+        margin-right: 5%; /* Abstand zwischen den Containern */
+        margin-left: 0; /* Keine Einrückung links */
+    }
+    
+    
+    .confirm-button-container {
+        padding-top: 5px;
+        display: flex;
+        flex-direction: row-reverse;
+
+        button {
+            background-color: purple;
+            color: white;
+        }
+    }
+}
+
+button:hover {
+    cursor: pointer;
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}

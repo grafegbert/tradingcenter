@@ -1,0 +1,59 @@
+mat-toolbar {
+    background-color: #731481;
+    width: 100%;
+    height: 80px;
+    border-bottom: solid 3px;
+    border-color: black;
+    position: fixed;
+    z-index: 999;
+
+    #left-container {
+        width: 30%;
+        display: flex;
+    }
+
+    img {
+        height: 65px;
+        width: auto;
+    }
+
+
+    #market-dropdown{
+        align-self: center;
+    }
+
+    #my-cards {
+        align-self: center;
+    }
+
+    #search-field-frame {
+        border: 2px solid black;
+        overflow: hidden;
+        width: 40%;
+        border-radius: 35px;
+
+        #search-field {
+            background-color: white;
+            width: 100%;
+        }
+    }
+}
+
+//Searchfield background cant be hidden
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    margin-bottom: -20px;
+}
+
+img:hover {
+    cursor: pointer;
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+button:hover {
+    cursor: pointer;
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
