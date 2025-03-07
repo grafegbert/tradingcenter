@@ -1,23 +1,13 @@
 package org.afbb.tradingcenter;
 
-import org.afbb.tradingcenter.database.CardService;
-import org.afbb.tradingcenter.objects.Card;
-
-import java.sql.SQLException;
-import java.util.List;
+import org.afbb.tradingcenter.server.JettyServer;
 
 public class Main {
     public static void main(String[] args) {
-        //TODO: delete example code
-
-        CardService cardService;
+        JettyServer server = new JettyServer(8080);
         try {
-            cardService = new CardService();
-            List<Card> cards = cardService.getCards("Dark Magician", 1, 100);
-            for(Card o : cards){
-                System.out.println(o.getName());
-            }
-        } catch (SQLException e) {
+            server.start();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
