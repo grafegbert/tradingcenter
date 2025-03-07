@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FilteredCards, MonsterCard } from './models/models';
 import { DUMMY_MONSTER_CARDS } from './models/DUMMY_MONSTER_CARDS';
 
@@ -9,7 +9,7 @@ import { DUMMY_MONSTER_CARDS } from './models/DUMMY_MONSTER_CARDS';
 })
 export class ApiClientService { 
   cards$: BehaviorSubject<MonsterCard[]> = new BehaviorSubject<MonsterCard[]>([]);
-  adress: String = "http://localhost:8080/"
+  adress: String = "http://localhost:8080/api/"
 
   constructor(private http: HttpClient) {}
 
@@ -37,13 +37,19 @@ export class ApiClientService {
     ); 
   }
 
-  private fetchAllCards(): void {
-    this.http.get<any[]>(this.adress + "cards/",  { headers: this.getDefaultHeaders() }).subscribe((result) => {
-      console.error(result);
-      result.forEach(card => {
-
-        let builtCard = {
-          id: card.number,
+  private fetchAllCards(pagesize: number, pageindex: number, filter: string): void {
+    const params = new HttpParams()
+      .set("pagesize", pagesize.toString())
+      .set("pageindex", pageindex.toString())
+      .set("filter", filter);
+  
+    this.http.get<FilteredCards>(`${this.adress}cards/`, { headers: this.getDefaultHeaders(), params })
+      .subscribe((result) => {
+        console.log("Empfangene Karten:", result);
+  
+        
+        const mappedCards = result.MonsterCards.map(card => ({
+          id: card.id,
           name: card.name,
           type: card.type,
           humanReadableCardType: card.humanReadableCardType,
@@ -52,27 +58,29 @@ export class ApiClientService {
           race: card.race,
           archetype: card.archetype,
           ygoprodeckUrl: card.ygoprodeckUrl,
-          sets: card.sets,
           imageLinks: card.imageLinks,
           prices: card.prices,
           attack: card.attack,
           defense: card.defense,
           level: card.level,
           attribute: card.attribute,
-        };
-
-        this.cards$.next([...this.cards$.value, builtCard]);
+        }));
+  
+        this.cards$.next(mappedCards);
       });
-    });
   }
 
-  /*public getAllCards(): Observable<MonsterCard[]> {
-    this.fetchAllCards();
-    return this.cards$;
-  }*/
+  public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
+    const params = new HttpParams()
+    .set("pagesize", pagesize.toString())
+    .set("pageindex", pageindex.toString())
+    .set("filter", filter);
+
+    return this.http.get<FilteredCards>(`${this.adress}cards/`, { headers: this.getDefaultHeaders(), params });
+  }
 
   //Für Dummy Karten aktivieren
-  public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
+  /*public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
     const filteredCards = DUMMY_MONSTER_CARDS.filter(card => 
       card.name.toLowerCase().includes(filter.toLowerCase())
     );
@@ -84,7 +92,7 @@ export class ApiClientService {
     const paginatedCards = filteredCards.slice(startIndex, endIndex);
 
     return of({ MonsterCards: paginatedCards, totalamount });
-  }
+  }*/
 
   private getDefaultHeaders(): HttpHeaders {
     return new HttpHeaders()
