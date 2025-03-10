@@ -9,34 +9,19 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.util.List;
 
-//TODO: overwrite NoArgsConstructor and refactor
 @Getter
-@Table(name = "cards")
-@Entity
-@NoArgsConstructor(force = true)
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Card {
-    @Id
     private final Integer id;
     private final String name;
     private final String type;
-    @Column(name = "human_readable_card_type")
     private final String humanReadableCardType;
-    @Column(name = "frame_type")
     private final String frameType;
     private final String description;
     private final String race;
-    @JoinColumn(name = "archetype_id")
     private final String archetype;
-    @Column(name = "ygoprodeck_url")
     private final String ygoprodeckUrl;
-    @Transient
     private final List<CardSet> sets;
-    @ManyToOne
-    @JoinColumn(name = "image_card_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private final CardImages imageLinks;
-    @OneToOne
-    @JoinColumn(name = "id")
     private final CardPrices prices;
 
     public Card(       Integer id,
@@ -65,4 +50,22 @@ public class Card {
         this.imageLinks = imageLinks;
         this.prices = prices;
     }
+
+  @Override
+  public String toString() {
+    return "{" +
+      "\"id\":" + id + "," +
+      "\"name\":\"" + name + "\"," +
+      "\"type\":\"" + type + "\"," +
+      "\"humanReadableCardType\":\"" +humanReadableCardType + "\"," +
+      "\"frameType\":\"" + frameType + "\"," +
+      "\"description\":\"" + description + "\"," +
+      "\"race\":\"" + race + "\"," +
+      "\"archetype\":\"" + archetype + "\"," +
+      "\"ygoprodeckUrl\":\"" + ygoprodeckUrl + "\"," +
+      "\"imageLinksTest\":\"" + imageLinks.getImageUrl() + "\"," +
+      "\"pricesTest\":\"" + prices.getCardMarketPrice() + "\"" +
+      "}";
+  }
+
 }

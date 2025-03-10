@@ -19,7 +19,7 @@ public class Handler implements HttpHandler {
   private static final String HTTP_GET = "GET";
   private static final Charset charset = StandardCharsets.UTF_8;
   private String responseBody;
-  private static int statusCode;
+  private static int statusCode = 200;
 
   @Override
   public void handle(HttpExchange httpExchange){

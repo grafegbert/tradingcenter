@@ -1,55 +1,85 @@
 package org.afbb.tradingcenter.database;
 
 import org.afbb.tradingcenter.objects.Card;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.afbb.tradingcenter.objects.arrays.CardImages;
+import org.afbb.tradingcenter.objects.arrays.CardPrices;
+import org.jooq.DSLContext;
+import org.jooq.Result;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.List;
-import java.sql.*;
+import java.util.stream.Collectors;
 
+import static org.jooq.impl.DSL.field;
 
 public class CardRepository {
-    private final Session databaseSession = DatabaseConnection.getInstance().getSession();
 
-    public CardRepository() throws SQLException {
-        databaseSession.beginTransaction();
-    }
+  private final DSLContext dslContext;
 
-    public List<Card> getCardsBySearchTerm(String searchTerm, int firstResult, int pageSize) throws IOException {
-        String sqlQueryFromFile = new String(Files.readAllBytes(
-                Paths.get("src/main/java/org/afbb/tradingcenter/database/queries/select_cards_by_term.sql")
+  public CardRepository() throws SQLException {
+    this.dslContext = Connector.getInstance();
+  }
+
+  public List<Card> getCardsBySearchTerm(String searchTerm, int firstResult, int pageSize) throws SQLException {
+    Result<org.jooq.Record> cardResult = dslContext.select()
+      .from("card")
+      .where(field("name").like("%" + searchTerm + "%"))
+      .limit(pageSize)
+      .offset(firstResult)
+      .fetch();
+
+    Result<org.jooq.Record> monsterCardResult = dslContext.select()
+      .from("monster_cards")
+      .where(field("name").like("%" + searchTerm + "%"))
+      .limit(pageSize)
+      .offset(firstResult)
+      .fetch();
+
+    return cardResult.stream()
+      .map(record -> new Card(
+        record.getValue("id", Integer.class),
+        record.getValue("name", String.class),
+        record.getValue("type", String.class),
+        record.getValue("human_readable_card_type", String.class),
+        record.getValue("frame_type", String.class),
+        record.getValue("description", String.class),
+        record.getValue("race", String.class),
+        record.getValue("archetype", String.class),
+        record.getValue("ygoprodeck_url", String.class),
+        null,
+        getImageLink(record.getValue("image_card_id", Integer.class)),
+        getCardPrices(record.getValue("prices_id", Integer.class))))
+      .collect(Collectors.toList());
+  }
+
+  private CardImages getImageLink(Integer cardId) {
+    Result<org.jooq.Record> result = dslContext.select()
+      .from("card_images")
+      .where(field("id").like(String.valueOf(cardId))).fetch();
+
+    return result.get(0)
+      .map(record -> new CardImages(
+        cardId,
+        record.getValue("image_url", String.class),
+        null,
+        null
         ));
+  }
 
-        Query<Card> query = databaseSession.createQuery(sqlQueryFromFile, Card.class);
-        query.setParameter("search", "%" + searchTerm + "%");
-        query.setFirstResult(firstResult);
-        query.setMaxResults(pageSize);
+  private CardPrices getCardPrices(Integer cardId) {
+    Result<org.jooq.Record> result = dslContext.select()
+      .from("card_images")
+      .where(field("id").like(String.valueOf(cardId))).fetch();
 
-        return query.getResultList();
-    }
-
-    public List<Card> getAllCards(int firstResult, int pageSize) throws IOException {
-        String sqlQueryFromFile = new String(Files.readAllBytes(Paths.get("src/main/java/org/afbb/tradingcenter/database/queries/select_all_cards.sql")));
-        Query<Card> query = databaseSession.createQuery(sqlQueryFromFile, Card.class);
-        query.setFirstResult(firstResult);
-        query.setMaxResults(pageSize);
-        return query.getResultList();
-    }
-
-    public int getCountCardsBySearchTerm(String searchTerm) throws IOException {
-        String sqlQueryFromFile = new String(Files.readAllBytes(Paths.get("src/main/java/org/afbb/tradingcenter/database/queries/count_cards_by_term.sql")));
-        Query<Long> countQuery = databaseSession.createQuery(sqlQueryFromFile, Long.class);
-        countQuery.setParameter("search", "%" + searchTerm + "%");
-        return countQuery.getSingleResult().intValue();
-    }
-
-    public int getCountCards() throws IOException {
-        String sqlQueryFromFile = new String(Files.readAllBytes(Paths.get("src/main/java/org/afbb/tradingcenter/database/queries/count_all_cards.sql")));
-        Query<Long> countQuery = databaseSession.createQuery(sqlQueryFromFile , Long.class);
-        return countQuery.getSingleResult().intValue();
-    }
+    return result.get(0)
+      .map(record -> new CardPrices(
+        cardId,
+        record.getValue("card_market_price", Double.class),
+        null,
+        null,
+        null,
+        null
+      ));
+  }
 }
 
