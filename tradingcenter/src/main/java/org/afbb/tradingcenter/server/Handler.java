@@ -12,6 +12,7 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.List;
 
 @Slf4j
 public class Handler implements HttpHandler {
@@ -49,7 +50,7 @@ public class Handler implements HttpHandler {
       byte[] bytes = responseBody.getBytes(StandardCharsets.UTF_8);
       Headers responseHeaders = new Headers();
       responseHeaders.add("Access-Control-Allow-Origin", "*");
-      responseHeaders.add("Access-Control-Allow-Headers", "*");
+      responseHeaders.put("Access-Control-Allow-Headers", List.of("*", "authorization"));
       responseHeaders.add("Access-Control-Allow-Methods", "GET");
       responseHeaders.add("Content-Type", "application/json");
 
