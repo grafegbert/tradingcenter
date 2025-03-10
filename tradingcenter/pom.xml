@@ -15,35 +15,27 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
+
+        <!-- Jersey REST Core -->
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>12.0.16</version>
+          <groupId>org.glassfish.jersey.core</groupId>
+          <artifactId>jersey-common</artifactId>
+          <version>3.1.10</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlet -->
+
+        <!-- Jakarta Servlet API -->
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>11.0.24</version>
+          <groupId>jakarta.servlet</groupId>
+          <artifactId>jakarta.servlet-api</artifactId>
+          <version>6.0.0</version>
+          <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+
+        <!-- SLF4J Simple Logger (optional für Logs in Konsole) -->
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>3.1.10</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>3.1.10</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-jetty-http -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-jetty-http</artifactId>
-            <version>3.1.10</version>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+          <version>2.0.9</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
@@ -57,13 +49,7 @@
             <artifactId>h2</artifactId>
             <version>2.3.232</version>
         </dependency>
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>10.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+      <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

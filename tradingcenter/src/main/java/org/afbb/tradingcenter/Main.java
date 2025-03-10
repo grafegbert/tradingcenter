@@ -1,14 +1,16 @@
 package org.afbb.tradingcenter;
 
-import org.afbb.tradingcenter.server.JettyServer;
+import org.afbb.tradingcenter.server.HttpServer;
 
 public class Main {
     public static void main(String[] args) {
-        JettyServer server = new JettyServer(8080);
-        try {
-            server.start();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+      HttpServer server = new HttpServer();
+      try {
+        server.setUpServer();
+        server.start();
+      } catch (Exception e) {
+        System.out.println("Server kaputt");
+        server.stop();
+      }
+  }
 }
