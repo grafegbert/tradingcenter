@@ -17,21 +17,10 @@ public class CardService {
         int firstResult = (page - 1) * pageSize;
         try {
             if (searchTerm.isEmpty()){
-                return cardRepository.getAllCards(firstResult, pageSize);
+                return cardRepository.getCardsBySearchTerm( searchTerm, firstResult, pageSize);
             }
             return cardRepository.getCardsBySearchTerm(searchTerm, firstResult, pageSize);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public int getTotalAmount(String searchTerm){
-        try {
-            if (searchTerm.isEmpty()){
-                return cardRepository.getCountCards();
-            }
-            return cardRepository.getCountCardsBySearchTerm(searchTerm);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
