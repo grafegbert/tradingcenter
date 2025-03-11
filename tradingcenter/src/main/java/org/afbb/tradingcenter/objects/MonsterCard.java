@@ -1,6 +1,5 @@
 package org.afbb.tradingcenter.objects;
 
-import lombok.NoArgsConstructor;
 import org.afbb.tradingcenter.objects.arrays.CardImages;
 import org.afbb.tradingcenter.objects.arrays.CardPrices;
 import org.afbb.tradingcenter.objects.arrays.CardSet;
@@ -13,7 +12,6 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "monster_cards")
-@NoArgsConstructor(force = true)
 @PrimaryKeyJoinColumn(name = "id")
 public class MonsterCard extends Card {
     private Integer attack;

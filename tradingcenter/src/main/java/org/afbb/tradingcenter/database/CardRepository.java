@@ -21,12 +21,16 @@ public class CardRepository {
   }
 
   public List<Card> getCardsBySearchTerm(String searchTerm, int firstResult, int pageSize) throws SQLException {
+    /*
+    Is not implemented because in frontend only monster cards are implemented
+
     Result<org.jooq.Record> cardResult = dslContext.select()
       .from("card")
       .where(field("name").like("%" + searchTerm + "%"))
       .limit(pageSize)
       .offset(firstResult)
       .fetch();
+     */
 
     Result<org.jooq.Record> monsterCardResult = dslContext.select()
       .from("monster_cards")
@@ -35,7 +39,7 @@ public class CardRepository {
       .offset(firstResult)
       .fetch();
 
-    return cardResult.stream()
+    return monsterCardResult.stream()
       .map(record -> new Card(
         record.getValue("id", Integer.class),
         record.getValue("name", String.class),
@@ -63,7 +67,7 @@ public class CardRepository {
         record.getValue("image_url", String.class),
         null,
         null
-        ));
+      ));
   }
 
   private CardPrices getCardPrices(Integer cardId) {
