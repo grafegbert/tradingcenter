@@ -1,12 +1,10 @@
 package org.afbb.tradingcenter.objects;
 
-import lombok.NoArgsConstructor;
 import org.afbb.tradingcenter.objects.arrays.CardImages;
 import org.afbb.tradingcenter.objects.arrays.CardPrices;
 import org.afbb.tradingcenter.objects.arrays.CardSet;
 import lombok.Getter;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Getter
