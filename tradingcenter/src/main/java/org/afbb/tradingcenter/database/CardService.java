@@ -7,21 +7,22 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CardService {
-    private final CardRepository cardRepository;
+    private CardRepository cardRepository;
 
-    public CardService() throws SQLException {
-        this.cardRepository = new CardRepository();
+    public CardService() {
+
     }
 
-    public List<Card> getCards(String searchTerm, int page, int pageSize) {
-        int firstResult = (page - 1) * pageSize;
+    public List<Card> getCards(String searchTerm, int page, int pageSize) throws SQLException {
+        int firstResult = page * pageSize;
+
         try {
-            if (searchTerm.isEmpty()){
-                return cardRepository.getCardsBySearchTerm( searchTerm, firstResult, pageSize);
-            }
+          this.cardRepository = new CardRepository();
             return cardRepository.getCardsBySearchTerm(searchTerm, firstResult, pageSize);
+
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw e;
         }
     }
 }

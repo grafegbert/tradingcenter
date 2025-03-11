@@ -2,6 +2,7 @@ package org.afbb.tradingcenter.database;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,19 +15,19 @@ public class Connector {
     private String dbUser;
     private String dbPass;
 
-    private Connector() { }
+    public Connector() { }
 
-    public static DSLContext getInstance() {
-      if (dslContext == null) {
-        try {
-          Connection connection = DriverManager.getConnection("jdbc:mariadb:31.22.4.234/yudooalr_db_yugiooh", "yudooalr_TC_APP_Adm", "IJyLNGbSQ[x;");
-          dslContext = DSL.using(connection);
+    public DSLContext getInstance() {
+      try {
+        Connection conn = DriverManager.getConnection("jdbc:mariadb://31.22.4.234:3306", "yudooalr_TC_App_Adm", "6v#Pzb_kQ+,8");
+        DSLContext dslContext = DSL.using(conn, SQLDialect.MARIADB);
 
-        } catch (SQLException e) {
-          log.error("Could not connect to Database", e);
+          return dslContext;
+
+      } catch(SQLException e){
+          System.out.println("Could not connect to DB");
+          e.printStackTrace();
+          return null;
         }
       }
-
-      return dslContext;
     }
-}

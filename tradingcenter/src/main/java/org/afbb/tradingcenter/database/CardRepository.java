@@ -17,10 +17,11 @@ public class CardRepository {
   private final DSLContext dslContext;
 
   public CardRepository() throws SQLException {
-    this.dslContext = Connector.getInstance();
+    this.dslContext = new Connector().getInstance();
   }
 
   public List<Card> getCardsBySearchTerm(String searchTerm, int firstResult, int pageSize) throws SQLException {
+    System.out.println("DB conn established");
     /*
     Is not implemented because in frontend only monster cards are implemented
 
@@ -38,6 +39,8 @@ public class CardRepository {
       .limit(pageSize)
       .offset(firstResult)
       .fetch();
+
+    System.out.println("Query successfull");
 
     return monsterCardResult.stream()
       .map(record -> new Card(
