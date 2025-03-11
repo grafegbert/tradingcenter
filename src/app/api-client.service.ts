@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { FilteredCards, MonsterCard } from './models/models';
 import { DUMMY_MONSTER_CARDS } from './models/DUMMY_MONSTER_CARDS';
@@ -76,10 +76,52 @@ export class ApiClientService {
     .set("pageindex", pageindex.toString())
     .set("filter", filter);
 
-    //console.dir(this.http.get<FilteredCards>(`${this.adress}`, { headers: this.getDefaultHeaders(), params }));
 
-    return this.http.get<FilteredCards>(`${this.adress}`, { headers: this.getDefaultHeaders(), params });
+
+    return this.http.get<any>(`${this.adress}`, { headers: this.getDefaultHeaders(), params })
+    .pipe(
+      map((response: any) => {
+        console.log(response);
+        // Mappen der JSON-Daten in das FilteredCards-Interface
+        const filteredCards: FilteredCards = {
+          totalamount: response.totalamount,
+          MonsterCards: response.MonsterCards.map((card: any) => ({
+            id: card.id,
+            name: card.name,
+            type: card.type,
+            humanReadableCardType: card.humanReadableCardType,
+            frameType: card.frameType,
+            description: card.description,
+            race: card.race,
+            archetype: card.archetype,
+            ygoprodeckUrl: card.ygoprodeckUrl,
+            imageLinks: card.imageLinks,
+            prices: card.prices,
+            attack: card.attack,
+            defense: card.defense,
+            level: card.level,
+            attribute: card.attribute
+          }))
+        };
+        console.log(filteredCards);
+        return filteredCards;
+      })
+    );
   }
+
+  /*public getAllCards(pagesize: number, pageindex: number, filter: string ): void {
+    const params = new HttpParams()
+    .set("pagesize", pagesize.toString())
+    .set("pageindex", pageindex.toString())
+    .set("filter", filter);
+
+
+
+    this.http.get<any>(`${this.adress}`, { headers: this.getDefaultHeaders(), params })
+    .subscribe((result) => {
+      console.log(result);
+    })
+  }*/
 
   //Für die mock_data, wie es aus dem Backend ankommen sollte
   /*public getAllCards(pagesize: number, pageindex: number, filter: string): Observable<FilteredCards> {

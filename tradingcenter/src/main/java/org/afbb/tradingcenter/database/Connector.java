@@ -22,7 +22,7 @@ public class Connector {
 
     public DSLContext getInstance() {
       try {
-        Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/yu_gi_oh", "yu_gi_oh_connection", "6v#Pzb_kQ+,8");
+        Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/yu_gi_oh", "root", "6v#Pzb_kQ+,8");
         Settings settings = new Settings();
         settings.setStatementType(StatementType.STATIC_STATEMENT);
         DSLContext dslContext = DSL.using(conn, SQLDialect.MARIADB, settings);

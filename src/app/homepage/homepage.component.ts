@@ -12,6 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class HomepageComponent implements OnInit {
   allCards: MonsterCard[] = [];
+  //  allCards: BehaviorSubject<MonsterCard[]>[] = new BehaviorSubject<MonsterCard[]>([]);
   loadingAnimationTrigger: boolean = true;
   noMatchingCardsFound: boolean = false;
   currentSearchValue: string = "";
@@ -26,7 +27,7 @@ export class HomepageComponent implements OnInit {
       this.currentSearchValue = searchValue;
       this.loadCards(); 
     });
-
+    this.service.getAllCards(1,1,"");
     this.loadCards();
   }
 
@@ -35,16 +36,17 @@ export class HomepageComponent implements OnInit {
 
     this.service.getAllCards(this.pagesize, this.pageindex, this.currentSearchValue)
       .pipe(
-        tap(() => this.loadingAnimationTrigger = true),  // Animation erneut starten
+        tap(() => this.loadingAnimationTrigger = true),
         catchError(() => {
-          this.loadingAnimationTrigger = false;  // Animation beenden bei Fehler
+          this.loadingAnimationTrigger = false;
           return EMPTY;
         })
       )
       .subscribe(cards => {
+        console.log(cards);
         this.allCards = cards.MonsterCards;
         this.numberOfAllCards = cards.totalamount;
-        this.loadingAnimationTrigger = false; // Ladeanimation beenden, wenn Daten da sind
+        this.loadingAnimationTrigger = false;
         this.noMatchingCardsFound = this.allCards.length === 0;
       });
   }

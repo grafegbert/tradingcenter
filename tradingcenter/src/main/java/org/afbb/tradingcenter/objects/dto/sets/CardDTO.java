@@ -18,6 +18,10 @@ public class CardDTO {
     private final String ygoprodeckUrl;
     private final String imageLinks;
     private final Double prices;
+    private final Integer attack;
+    private final Integer defense;
+    private final Integer level;
+    private final String attribute;
 
 public CardDTO(Integer id,
                String name,
@@ -29,7 +33,11 @@ public CardDTO(Integer id,
                String archetype,
                String ygoprodeckUrl,
                String imageLinks,
-               Double prices) {
+               Double prices,
+               Integer attack,
+               Integer defense,
+               Integer level,
+               String attribute) {
 
         this.id = id;
         this.name = name;
@@ -42,5 +50,28 @@ public CardDTO(Integer id,
         this.ygoprodeckUrl = ygoprodeckUrl;
         this.imageLinks = imageLinks;
         this.prices = prices;
-    }
+        this.attack = attack;
+        this.defense = defense;
+        this.level = level;
+        this.attribute = attribute;
+  }
+  public String toJsonString() {
+    return "{" +
+      "\"id\":" + id + "," +
+      "\"name\":\"" + name + "\"," +
+      "\"type\":\"" + type + "\"," +
+      "\"humanReadableCardType\":\"" + humanReadableCardType + "\"," +
+      "\"frameType\":\"" + frameType + "\"," +
+      "\"description\":\"" + description + "\"," +
+      "\"race\":\"" + race + "\"," +
+      "\"archetype\":\"" + archetype + "\"," +
+      "\"ygoprodeckUrl\":\"" + ygoprodeckUrl + "\"," +
+      "\"imageLinks\":\"" + imageLinks + "\"," +
+      "\"prices\":" + prices + "," +
+      "\"attack\":" + attack + "," +
+      "\"defense\":" + defense + "," +
+      "\"level\":" + level + "," +
+      "\"attribute\":\"" + attribute + "\"" +
+      "}";
+  }
 }

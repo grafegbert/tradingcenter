@@ -1,6 +1,6 @@
 package org.afbb.tradingcenter.database;
 
-import org.afbb.tradingcenter.objects.Card;
+import org.afbb.tradingcenter.objects.MonsterCard;
 import org.afbb.tradingcenter.objects.arrays.CardImages;
 import org.afbb.tradingcenter.objects.arrays.CardPrices;
 import org.afbb.tradingcenter.objects.dto.sets.CardDTO;
@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CardMapper {
-    public static List<CardDTO> mapToDtoList(List<Card> cards) {
+    public static List<CardDTO> mapToDtoList(List<MonsterCard> cards) {
         return cards.stream().map(CardMapper::mapToDto).collect(Collectors.toList());
     }
 
-    private static CardDTO mapToDto(Card card) {
+    private static CardDTO mapToDto(MonsterCard card) {
         String imageLinks = convertCardImageToString(card.getImageLinks());
         Double prices = convertCardMarketPricesToDouble(card.getPrices());
 
@@ -28,7 +28,11 @@ public class CardMapper {
                 card.getArchetype(),
                 card.getYgoprodeckUrl(),
                 imageLinks,
-                prices
+                prices,
+                card.getAttack(),
+                card.getDefense(),
+                card.getLevel(),
+                card.getAttribute()
         );
     }
 

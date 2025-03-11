@@ -8,6 +8,7 @@ import org.afbb.tradingcenter.database.CardService;
 import org.afbb.tradingcenter.objects.Card;
 import org.afbb.tradingcenter.objects.arrays.CardImages;
 import org.afbb.tradingcenter.objects.arrays.CardPrices;
+import org.afbb.tradingcenter.objects.dto.sets.FilteredCardsDTO;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -62,7 +63,8 @@ public class Handler implements HttpHandler {
         System.out.println("Starting to fetch data from db");
         //new CardService().getCards(filter, page, pageSize)
         responseBody = buildResponseBody(new CardService().getCards(filter, page, pageSize));
-        System.out.println("RESPBODY: " + responseBody);
+        System.out.println(responseBody);
+
 
       } catch (SQLException e) {
         System.out.println("database related problem occurred");
@@ -70,11 +72,11 @@ public class Handler implements HttpHandler {
         statusCode = 500;
       }
 
-      byte[] bytes = responseBody.getBytes(StandardCharsets.UTF_8);
+      byte[] bytes = responseBody.getBytes(StandardCharsets.UTF_8);;
 
       try {
         httpExchange.sendResponseHeaders(statusCode, bytes.length);
-
+        sendResponse(httpExchange, responseBody);
       } catch (IOException e) {
         System.out.println("Response headers could not be sent");
       }
@@ -111,12 +113,12 @@ public class Handler implements HttpHandler {
     }
   }
 
-  private String buildResponseBody(List<Card> cards) {
+  private String buildResponseBody(FilteredCardsDTO cards) {
     //DEBUG
     //cards = List.of(testCard, testCard);
     //DEBUG
     StringBuilder builder = new StringBuilder();
-    int totalAmount = cards.size();
+    int totalAmount = cards.getTotalAmount();
 
     System.out.println("Fetched Cards amount: " + totalAmount);
 
@@ -126,9 +128,9 @@ public class Handler implements HttpHandler {
     builder.append("\"MonsterCards\": [");
 
     for (int index = 0; index < totalAmount; index++) {
-      builder.append(cards.get(index));
+      builder.append(cards.getCardsList().get(index).toJsonString());
 
-      if (index -1 != totalAmount) {
+      if (index+1 != totalAmount) {
         builder.append(",");
       }
     }
