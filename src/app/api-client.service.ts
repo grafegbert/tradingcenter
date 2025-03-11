@@ -9,7 +9,7 @@ import { DUMMY_MONSTER_CARDS } from './models/DUMMY_MONSTER_CARDS';
 })
 export class ApiClientService { 
   cards$: BehaviorSubject<MonsterCard[]> = new BehaviorSubject<MonsterCard[]>([]);
-  adress: String = "http://localhost:8080/api/"
+  adress: String = "http://localhost:8080/"
 
   constructor(private http: HttpClient) {}
 
@@ -70,13 +70,26 @@ export class ApiClientService {
       });
   }
 
-  public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
+  /*public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
     const params = new HttpParams()
     .set("pagesize", pagesize.toString())
     .set("pageindex", pageindex.toString())
     .set("filter", filter);
 
-    return this.http.get<FilteredCards>(`${this.adress}cards/`, { headers: this.getDefaultHeaders(), params });
+    console.dir(this.http.get<FilteredCards>(`${this.adress}`, { headers: this.getDefaultHeaders(), params }));
+
+    return this.http.get<FilteredCards>(`${this.adress}`, { headers: this.getDefaultHeaders(), params });
+  }*/
+
+  //Für die mock_data, wie es aus dem Backend ankommen sollte
+  public getAllCards(pagesize: number, pageindex: number, filter: string): Observable<FilteredCards> {
+
+    const params = new HttpParams()
+      .set("pagesize", pagesize.toString())
+      .set("pageindex", pageindex.toString())
+      .set("filter", filter);
+
+    return this.http.get<FilteredCards>("assets/mock_data.json", { headers: this.getDefaultHeaders(), params });
   }
 
   //Für Dummy Karten aktivieren
