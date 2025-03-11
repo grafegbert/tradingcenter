@@ -70,19 +70,19 @@ export class ApiClientService {
       });
   }
 
-  /*public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
+  public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {
     const params = new HttpParams()
     .set("pagesize", pagesize.toString())
     .set("pageindex", pageindex.toString())
     .set("filter", filter);
 
-    console.dir(this.http.get<FilteredCards>(`${this.adress}`, { headers: this.getDefaultHeaders(), params }));
+    //console.dir(this.http.get<FilteredCards>(`${this.adress}`, { headers: this.getDefaultHeaders(), params }));
 
     return this.http.get<FilteredCards>(`${this.adress}`, { headers: this.getDefaultHeaders(), params });
-  }*/
+  }
 
   //Für die mock_data, wie es aus dem Backend ankommen sollte
-  public getAllCards(pagesize: number, pageindex: number, filter: string): Observable<FilteredCards> {
+  /*public getAllCards(pagesize: number, pageindex: number, filter: string): Observable<FilteredCards> {
 
     const params = new HttpParams()
       .set("pagesize", pagesize.toString())
@@ -90,7 +90,7 @@ export class ApiClientService {
       .set("filter", filter);
 
     return this.http.get<FilteredCards>("assets/mock_data.json", { headers: this.getDefaultHeaders(), params });
-  }
+  }*/
 
   //Für Dummy Karten aktivieren
   /*public getAllCards(pagesize: number, pageindex: number, filter: string ): Observable<FilteredCards> {

@@ -5,12 +5,14 @@ import org.afbb.tradingcenter.objects.arrays.CardImages;
 import org.afbb.tradingcenter.objects.arrays.CardPrices;
 import org.jooq.DSLContext;
 import org.jooq.Result;
+import org.jooq.impl.DSL;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.jooq.impl.DSL.field;
+import static org.jooq.impl.DSL.table;
 
 public class CardRepository {
 
@@ -33,11 +35,22 @@ public class CardRepository {
       .fetch();
      */
 
-    Result<org.jooq.Record> monsterCardResult = dslContext.select()
+    /*Result<org.jooq.Record> monsterCardResult = dslContext.select()
       .from("monster_cards")
       .where(field("name").like("%" + searchTerm + "%"))
       .limit(pageSize)
       .offset(firstResult)
+      .fetch();*/
+
+    Result<org.jooq.Record> monsterCardResult = dslContext.select()
+      .from("monster_cards")
+      .join(table("cards"))
+      .on(field("monster_cards.id").eq(field("cards.id")))
+      .join(table("races"))
+      .on(field("monster_cards.id").eq(field("races.id")))
+      .where(field("cards.name").like("%" + searchTerm + "%"))
+      .orderBy(field("monster_cards.id").asc())
+      .limit(DSL.inline(pageSize), DSL.inline(firstResult))
       .fetch();
 
     System.out.println("Query successfull");
