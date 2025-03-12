@@ -103,7 +103,7 @@ export class ApiClientService {
             attribute: card.attribute
           }))
         };
-        console.log(filteredCards);
+        //console.log(filteredCards);
         return filteredCards;
       })
     );
