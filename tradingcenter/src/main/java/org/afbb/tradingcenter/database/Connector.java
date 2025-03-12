@@ -22,8 +22,8 @@ public class Connector {
 
     public DSLContext getInstance() {
       try {
-        Connection conn = DriverManager.getConnection("jdbc:mariadb://31.22.4.234:3306/yudooalr_db_yugiooh_x123", "yudooalr_TC_APP_User", "lJyLNGbSQ[x;");
-        //Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/mysql", "root", "root");
+       
+        Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/mysql", "root", "root");
         Settings settings = new Settings();
         settings.setStatementType(StatementType.STATIC_STATEMENT);
         DSLContext dslContext = DSL.using(conn, SQLDialect.MARIADB, settings);
