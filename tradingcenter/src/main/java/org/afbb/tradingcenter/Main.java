@@ -9,7 +9,7 @@ public class Main {
         server.setUpServer();
         server.start();
       } catch (Exception e) {
-        System.out.println("Server kaputt");
+        System.out.println("Server error");
         server.stop();
       }
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MonsterCard } from '../models/models';
 import { ApiClientService } from '../api-client.service';
-import { EMPTY, catchError, debounceTime, map, tap } from 'rxjs';
+import { EMPTY, catchError, debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
 import { SearchServiceService } from '../search-service.service';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -23,10 +23,16 @@ export class HomepageComponent implements OnInit {
   constructor(private service: ApiClientService, private searchService: SearchServiceService) {}
 
   ngOnInit(): void {
-    this.searchService.fetchSearchValue().subscribe(searchValue => {
-      this.currentSearchValue = searchValue;
-      this.loadCards(); 
-    });
+    this.searchService.fetchSearchValue()
+      .pipe(
+        debounceTime(400),
+        distinctUntilChanged()
+      )
+      .subscribe(searchValue => {
+        this.currentSearchValue = searchValue;
+        this.pageindex = 0;
+        this.loadCards();
+      });
     this.service.getAllCards(1,1,"");
     this.loadCards();
   }
@@ -37,7 +43,6 @@ export class HomepageComponent implements OnInit {
     this.service.getAllCards(this.pagesize, this.pageindex, this.currentSearchValue)
       .pipe(
         tap(() => this.loadingAnimationTrigger = true),
-        debounceTime(400),
         catchError(() => {
           this.loadingAnimationTrigger = false;
           return EMPTY;

@@ -63,7 +63,6 @@ public class Handler implements HttpHandler {
         System.out.println("Starting to fetch data from db");
         //new CardService().getCards(filter, page, pageSize)
         responseBody = buildResponseBody(new CardService().getCards(filter, page, pageSize));
-        System.out.println(responseBody);
 
 
       } catch (SQLException e) {
