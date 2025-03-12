@@ -37,6 +37,7 @@ export class HomepageComponent implements OnInit {
     this.service.getAllCards(this.pagesize, this.pageindex, this.currentSearchValue)
       .pipe(
         tap(() => this.loadingAnimationTrigger = true),
+        debounceTime(400),
         catchError(() => {
           this.loadingAnimationTrigger = false;
           return EMPTY;

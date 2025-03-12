@@ -127,10 +127,10 @@ public class Handler implements HttpHandler {
     builder.append(",");
     builder.append("\"MonsterCards\": [");
 
-    for (int index = 0; index < totalAmount; index++) {
+    for (int index = 0; index < cards.getCardsList().size(); index++) {
       builder.append(cards.getCardsList().get(index).toJsonString());
 
-      if (index+1 != totalAmount) {
+      if (index+1 != cards.getCardsList().size()) {
         builder.append(",");
       }
     }

@@ -153,6 +153,37 @@ public class CardRepository {
         null
       ));
   }
+
+  public int getTotalAmount(String searchTerm) {
+    int totalCount;
+    if (searchTerm.isEmpty()) {
+      totalCount = dslContext
+        .selectCount()
+        .from(table("monster_cards").as("mc"))
+        .join(table("cards").as("c"))
+        .on(field("mc.id").eq(field("c.id")))
+        .join(table("races").as("r"))
+        .on(field("c.race_id").eq(field("r.id")))
+        .join(table("archetypes").as("a"))
+        .on(field("c.archetype_id").eq(field("a.id")))
+        .fetchOneInto(int.class);
+        ;
+    } else {
+      totalCount = dslContext
+        .selectCount()
+        .from(table("monster_cards").as("mc"))
+        .join(table("cards").as("c"))
+        .on(field("mc.id").eq(field("c.id")))
+        .join(table("races").as("r"))
+        .on(field("c.race_id").eq(field("r.id")))
+        .join(table("archetypes").as("a"))
+        .on(field("c.archetype_id").eq(field("a.id")))
+        .where(field("c.name").like("%" + searchTerm + "%"))
+        .fetchOneInto(int.class);
+    }
+    return totalCount;
+  }
+
   private String getCleanStrings(String input){
     //return input.replaceAll("\"", "'");
     return"";
